@@ -58,3 +58,28 @@ docker run hello world
 ```
 docker image ls
 ```
+
+## To show all images (the default hides intermediate images):
+
+```
+docker image ls --all
+```
+
+or:
+
+```
+docker image ls -a
+```
+
+## Show images in quiet mode (only show numeric ids):
+
+```
+docker image ls -q
+```
+
+## Show all images in quiet mode:
+
+```
+docker image ls -aq
+```
+
