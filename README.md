@@ -273,15 +273,104 @@ docker login
 
 ## Tag image for upload to registry
 ```
-docker tag <image> <username>/<repository>:tag
+docker tag <image> <username>/<repository>:<tag>
 ```
 
 ## Upload tagged image to registry
 ```
-docker push <username>/<repository>:tag
+docker push <username>/<repository>:<tag>
 ```
 
 ## Run image from registry
 ```
-docker run <username>/<repository>:tag
+docker run <username>/<repository>:<tag>
+```
+
+## Building a service with ```docker-compose.yml```
+
+In this part we will scale the app and enable load balancing.
+
+### Create YAML file: ```docker-compose.yml```
+
+```yaml
+version: "3"
+services:
+  web:
+    # replace username/repo:tag with your name and image details
+    image: username/repo:tag
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "4000:80"
+    networks:
+      - webnet
+networks:
+  webnet:
+```
+
+### Use swarm manager to init swarm cluster
+```
+docker swarm init
+```
+
+### Deploy the service
+
+The app name is ```getstartedlab```
+
+```
+docker stack deploy -c docker-compose.yml getstartedlab
+```
+
+This will run our service stack with 5 container instances of our deployed image on one host.
+
+### Get service id
+
+```
+docker service ls
+```
+
+The service name is ```getstartedlab_web```.
+
+### List the tasks of the service
+
+A single container running in a service is a task.
+
+```
+docker service ps getstartedlab_web
+```
+
+### List containers - tasks are also shown
+```
+docker container ls 
+```
+
+### Call the app
+```
+curl http://localhost:4000
+```
+
+If this is run several times, the hostname, which contains the container id, will change. This demonstrates the load balancing.
+
+By changing the ```replicas``` value in ```docker-compose.yml``` the app can be scaled. The ```docker stack depliy -c docker-compose.yml getstartedlab``` command needs to be re-run after the change. An in-place update will happen, no need to shut down the app.
+
+### Take down the app
+
+```
+docker stack rm getstartedlab
+```
+
+### Take down the swarm
+```
+docker swarm leave --force
+```
+
+### Inspect the task or the container
+```
+docker inspect <task or container id>
 ```
