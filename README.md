@@ -1,4 +1,5 @@
 # Cheat Sheet for Docker
+This is a cheat sheet for using Docker. Based on https://docs.docker.com/get-started/
 
 ## Test Docker version
 
@@ -85,6 +86,8 @@ docker image ls -aq
 
 ## Define a new container with a ```Dockerfile``` 
 
+In this step we define a new container, build it, run it, and share it on Docker public registry.
+
 ### The ```Dockerfile```
 
 ```Dockerfile
@@ -148,6 +151,8 @@ if __name__ == "__main__":
 
 ### Build this app
 
+The option ```-t``` will apply the friendly name.
+
 ```
 docker build -t friendlyhello
 ```
@@ -189,3 +194,94 @@ Check the Docker container:
 docker container ls
 ```
 
+### Share the image 
+This step needs Docker ID - sign up at ```https://cloud.docker.com```.
+
+#### Login to the Docker public registry:
+
+```
+docker login
+```
+
+#### Tagging the image
+
+Replace ```<username>```, ```<repository>``` and ```<tag>``` with your username, repository name and tag.
+
+```
+docker tag friendlyhello <username>/<repository>:<tag>
+```
+
+#### Publish the image
+
+```
+docker push <username>/<repository>:<tag>
+```
+
+The image can be seen on ```https://hub.docker.com/```.
+
+#### Run the published image on any machine
+
+```
+docker run -p 4000:80 <username>/<repository>:<tag>
+```
+
+## List all containers, also those not running
+
+```
+docker container ls -a
+```
+
+## Gracefully stop a container
+```
+docker container stop <hash>
+```
+
+## Kill a container - force shutdown
+```
+docker container kill <hash>
+```
+
+## Remove a container 
+```
+docker container rm <hash>
+```
+
+## Remove all containers
+```
+docker container rm $(docker container ls -a -q)
+```
+
+## List all images on this machine
+```
+docker container ls
+```
+
+## Remove an image from the machine
+```
+docker container rm <image id>
+```
+
+## Remove all images from this machine
+```
+docker image rm $(docker image ls -a -q)
+```
+
+## Login to Docker public registry
+```
+docker login
+```
+
+## Tag image for upload to registry
+```
+docker tag <image> <username>/<repository>:tag
+```
+
+## Upload tagged image to registry
+```
+docker push <username>/<repository>:tag
+```
+
+## Run image from registry
+```
+docker run <username>/<repository>:tag
+```
