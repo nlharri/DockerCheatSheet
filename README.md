@@ -374,3 +374,27 @@ docker swarm leave --force
 ```
 docker inspect <task or container id>
 ```
+
+## Swarms
+
+Applications can be deployed onto a cluster, running on multiple machines. Multiple machines can be joined into a cluster which cluster is called a "swarm". (So from this point the "cluster" and the "swarm" will be used interchangeably.) Machines in a swarm can be physical or virtual, and after joining the cluster, they are called nodes. So a swarm is a group of machines running Docker and joined into a cluster. After building of this swarm, the usual Docker commands can be used, but they will be executed by a swarm manager. 
+
+The swarm manager can follow strategies for executing the commands, for example:
+* emptiest node: the least utilized machines will be filled with containers
+* global: each machine gets exactly one instance of the specified container
+
+Roles of the machines in a swarm:
+* swarm manager: (1) execute commands, (2) authorizes machines to join the swarm
+* worker: (1) provide capacity for the work (they cannot tell other machines what to do)
+
+Docker can be used in:
+* single-host mode: no swarm, cointainers are run in the single host
+* swarm mode: enables use of swarm. The current machine will become instantly a swarm manager.
+
+### Set up swarms
+
+### Deploy app on the swarm cluster
+
+### Cleanup and reboot
+
+
