@@ -384,8 +384,11 @@ The swarm manager can follow strategies for executing the commands, for example:
 * global: each machine gets exactly one instance of the specified container
 
 Roles of the machines in a swarm:
-* swarm manager: (1) execute commands, (2) authorizes machines to join the swarm
-* worker: (1) provide capacity for the work (they cannot tell other machines what to do)
+* swarm manager: 
+  * execute commands
+  * authorizes machines to join the swarm
+* worker:
+  * provide capacity for the work (they cannot tell other machines what to do)
 
 Docker can be used in:
 * single-host mode: no swarm, cointainers are run in the single host
