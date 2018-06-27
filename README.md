@@ -321,7 +321,7 @@ docker swarm init
 
 ### Deploy the service
 
-The app name is ```getstartedlab```
+The app name is `getstartedlab`
 
 ```
 docker stack deploy -c docker-compose.yml getstartedlab
@@ -335,7 +335,7 @@ This will run our service stack with 5 container instances of our deployed image
 docker service ls
 ```
 
-The service name is ```getstartedlab_web```.
+The service name is `getstartedlab_web`.
 
 ### List the tasks of the service
 
@@ -357,7 +357,7 @@ curl http://localhost:4000
 
 If this is run several times, the hostname, which contains the container id, will change. This demonstrates the load balancing.
 
-By changing the ```replicas``` value in ```docker-compose.yml``` the app can be scaled. The ```docker stack depliy -c docker-compose.yml getstartedlab``` command needs to be re-run after the change. An in-place update will happen, no need to shut down the app.
+By changing the `replicas` value in `docker-compose.yml` the app can be scaled. The `docker stack depliy -c docker-compose.yml getstartedlab` command needs to be re-run after the change. An in-place update will happen, no need to shut down the app.
 
 ### Take down the app
 
@@ -396,9 +396,15 @@ Docker can be used in:
 
 ### Set up swarms
 
+`TODO`
+
 ### Deploy app on the swarm cluster
 
+`TODO`
+
 ### Cleanup and reboot
+
+`TODO`
 
 # Kubernetes (just some notes taken from edX online course)
 
