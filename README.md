@@ -19,15 +19,15 @@ or:
 docker version
 ```
 
-## Avoid using ```sudo``` when running Docker commands
+## Avoid using `sudo` when running Docker commands
 
-### Create ```docker``` group
+### Create `docker` group
 
 ```
 sudo groupadd docker
 ```
 
-### Add user to ```docker``` group
+### Add user to `docker` group
 
 ```
 sudo usermod -aG docker $user
@@ -35,13 +35,13 @@ sudo usermod -aG docker $user
 
 (After this it is necessary to logout and login again.)
 
-### Test if docker commands can be run without ```sudo```
+### Test if docker commands can be run without `sudo`
 
 ```
 docker run hello-world
 ```
 
-### Avoid permission denied error on ```config.json```
+### Avoid permission denied error on `config.json`
 
 ```
 sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
@@ -420,7 +420,7 @@ Components of a Kubernetes cluster:
       * Pods: scheduling unit in Kubernetes. A logical collection of one or more containers which are always scheduled together.
         * Containers
   * `kubelet`: an agent running on the worker nodes and communicating with the master node. It receives Pod definitions through the API server and runs the containers of the Pod. Connects to the container runtime using the `Container Runtime Interface (CRI)`. The `kubelet` is a grpc client and the `CRI shim` is a grpc server.
-  * `kube-proxy`: listen to API server, sets up routes from/to services
+  * `kube-proxy`: listen to API server, sets up routes from/to services. Exposes the services to the external world.
   
 `etcd`: distributed key-value store based on Raft Consensus Algorithm.
 
