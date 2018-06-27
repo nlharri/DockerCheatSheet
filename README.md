@@ -400,4 +400,34 @@ Docker can be used in:
 
 ### Cleanup and reboot
 
+# Kubernetes (just some notes taken from edX online course)
 
+Components of a Kubernetes cluster:
+* Master nodes:
+  * API server
+  * Scheduler
+  * Controller manager
+  * distributed key-value store, eg. `etcd`: Stores cluster state, configuration details, subnets, ConfigMaps, Secrets, etc. 
+* Worker nodes:
+  * Container runtime: runs and manages container's lifecycle. Examples: `containerd`, `rkt`, `lxd`. Docker is not a container runtime, but a platform which uses `containerd` as a container runtime.
+    * Services: group `Pods` and load balances
+      * Pods: scheduling unit in Kubernetes. A logical collection of one or more containers which are always scheduled together.
+        * Containers
+  * `kubelet`: an agent running on the worker nodes and communicating with the master node. It receives Pod definitions through the API server and runs the containers of the Pod. Connects to the container runtime using the `Container Runtime Interface (CRI)`. The `kubelet` is a grpc client and the `CRI shim` is a grpc server.
+  * `kube-proxy`: listen to API server, sets up routes from/to services
+  
+`etcd`: distributed key-value store based on Raft Consensus Algorithm.
+
+Container Runtime Interface (CRI):
+* protocol bufferes
+* gRPC API
+* libraries
+ 
+Services implemented by CRI:
+* `ImageService`: image-related operations
+* `RuntimeService`: Pod and container-related operations
+ 
+`CRI shims`:
+* `dockershim`
+* `cri-containerd`
+* `CRI-O`
