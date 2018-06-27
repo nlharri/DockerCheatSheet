@@ -409,10 +409,10 @@ Docker can be used in:
 # Kubernetes (just some notes taken from edX online course)
 
 Components of a Kubernetes cluster:
-* Master nodes:
-  * API server
-  * Scheduler
-  * Controller manager
+* Master nodes: entry point for all administrative tasks. (Communication to it vai CLI, GUI or API.)
+  * API server: all the administrative tasks are performed via the API server. (Receives REST commands, executes them and stores the resulting state in the distrubuted key-value store.) 
+  * Scheduler: Schedules the work, has the resource usage info for each worker node. Takes into account QoS requirements, data locality, etc.
+  * Controller manager: manages non-terminating control loops so that the current state of the objects should be the same as the desired state. (Watches state of the objects through the API server.)
   * distributed key-value store, eg. `etcd`: Stores cluster state, configuration details, subnets, ConfigMaps, Secrets, etc. 
 * Worker nodes:
   * Container runtime: runs and manages container's lifecycle. Examples: `containerd`, `rkt`, `lxd`. Docker is not a container runtime, but a platform which uses `containerd` as a container runtime.
