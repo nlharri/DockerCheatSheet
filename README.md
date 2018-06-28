@@ -413,27 +413,63 @@ Components of a Kubernetes cluster:
   * API server: all the administrative tasks are performed via the API server. (Receives REST commands, executes them and stores the resulting state in the distrubuted key-value store.) 
   * Scheduler: Schedules the work, has the resource usage info for each worker node. Takes into account QoS requirements, data locality, etc.
   * Controller manager: manages non-terminating control loops so that the current state of the objects should be the same as the desired state. (Watches state of the objects through the API server.)
-  * distributed key-value store, eg. `etcd`: Stores cluster state, configuration details, subnets, ConfigMaps, Secrets, etc. 
+  * distributed key-value store, eg. `etcd`: Stores cluster state, configuration details, subnets, ConfigMaps, Secrets, etc. `etcd` is a distributed key-value store based on Raft Consensus Algorithm.
 * Worker nodes:
   * Container runtime: runs and manages container's lifecycle. Examples: `containerd`, `rkt`, `lxd`. Docker is not a container runtime, but a platform which uses `containerd` as a container runtime.
     * Services: group `Pods` and load balances
       * Pods: scheduling unit in Kubernetes. A logical collection of one or more containers which are always scheduled together.
         * Containers
-  * `kubelet`: an agent running on the worker nodes and communicating with the master node. It receives Pod definitions through the API server and runs the containers of the Pod. Connects to the container runtime using the `Container Runtime Interface (CRI)`. The `kubelet` is a grpc client and the `CRI shim` is a grpc server.
+  * `kubelet`: an agent running on the worker nodes and communicating with the master node. It receives Pod definitions through the API server and runs the containers of the Pod. Connects to the container runtime using the **Container Runtime Interface (CRI)**. The `kubelet` is a grpc client and the **CRI shim** is a grpc server.
   * `kube-proxy`: listen to API server, sets up routes from/to services. Exposes the services to the external world.
   
-`etcd`: distributed key-value store based on Raft Consensus Algorithm.
-
-Container Runtime Interface (CRI):
+**Container Runtime Interface (CRI)**:
 * protocol bufferes
 * gRPC API
 * libraries
  
-Services implemented by CRI:
+Services implemented by **CRI**:
 * `ImageService`: image-related operations
 * `RuntimeService`: Pod and container-related operations
  
-`CRI shims`:
+**CRI shims**:
 * `dockershim`
 * `cri-containerd`
 * `CRI-O`
+
+Installation types of Kubernetes:
+* All-in-one single node
+* Single-node etcd, single-master, multi-worker
+* Single-node etcd, multi-master, multi-worker
+* Multi-node etcd, multi-master, multi-worker
+
+Other aspects of installation type:
+* place of installation
+  * localhost
+    * `minikube` (preferred way for all-on-one)
+    * Ubuntu on `LXD`
+  * on-premise virtual machines
+    * virtual machine created with vagrant
+    * virtual machine created with KVM
+  * on-premise bare metal (automated installation tools: `ansible`, `kubeadbm`)
+    * RHEL
+    * CoreOS
+    * CentOS
+    * Fedora
+    * Ubuntu
+    * etc.
+  * cloud (private or public cloud)
+    * hosted solutions
+    * turnkey cloud solutions
+    * bare metal
+* Operating system
+  * RHEL
+  * CoreOS
+  * CentOS
+  * etc.
+* Networking solution
+* Further aspects to consider
+
+Kubernetes installation tools:
+* `kubeadm`
+* KubeSpray (Kargo)
+* Kops
