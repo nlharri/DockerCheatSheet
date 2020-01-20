@@ -1,6 +1,12 @@
 # Cheat Sheet for Docker
 This is a cheat sheet for using Docker. Based on https://docs.docker.com/get-started/
 
+## Install Docker (Debian Based)
+
+```
+curl -fsSL https://get.docker.com | bash
+``` 
+
 ## Test Docker version
 
 ```
